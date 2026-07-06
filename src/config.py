@@ -14,10 +14,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # === LLM Configuration ===
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
-LLM_MODEL_NAME = "gemini-1.5-flash"
+LLM_MODEL_NAME = "gemini-3.1-flash-lite"
 
 # === Embedding Configuration ===
-EMBEDDING_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
+EMBEDDING_MODEL_NAME = "gemini-embedding-2"
 
 # === Data Paths ===
 RAW_DATA_DIR = str(BASE_DIR / "data" / "raw")
@@ -25,8 +25,9 @@ PROCESSED_DATA_DIR = str(BASE_DIR / "data" / "processed")
 VECTOR_DB_DIR = os.getenv("VECTOR_DB_DIR", str(BASE_DIR / "data" / "vector_db"))
 
 # === Chunking Configuration ===
-CHUNK_SIZE = 500
+CHUNK_SIZE = 300
 CHUNK_OVERLAP = 50
+
 
 # === API Configuration ===
 API_HOST = os.getenv("API_HOST", "0.0.0.0")

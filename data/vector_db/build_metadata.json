@@ -1,0 +1,10 @@
+{
+    "chunk_size": 300,
+    "chunk_overlap": 50,
+    "hashes": {
+        "faq_chung.txt": "ed082b4c6560bd875a2c9b91da317690",
+        "faq_the_tin_dung.txt": "ae30a1166ffc1c8b6914efda234ce8bd",
+        "faq_tiet_kiem.txt": "6d4e279c5fd92bcfe3c976ae8b07e5ac",
+        "faq_vay_von.txt": "6886b4578bd976ae4e721d378adff771"
+    }
+}
