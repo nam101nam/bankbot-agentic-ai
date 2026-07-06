@@ -1,6 +1,9 @@
 import os
 import sys
 
+# Thêm project root vào PYTHONPATH tự động
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from src.config import RAW_DATA_DIR
 from src.ingestion.loader import load_documents
 from src.ingestion.chunker import chunk_documents
