@@ -69,7 +69,7 @@ def convert_chat_history(chat_history: list) -> list:
             converted.append(msg)
     return converted
 
-def chat(user_message: str, chat_history: list = None) -> str:
+def chat(user_message: str, chat_history: list = None) -> tuple[str, list[str]]:
     """
     Hàm giao tiếp chính với BankBot Agent.
     
@@ -78,7 +78,7 @@ def chat(user_message: str, chat_history: list = None) -> str:
         chat_history: Lịch sử cuộc trò chuyện (mặc định là None).
         
     Returns:
-        Câu trả lời từ BankBot.
+        Một tuple gồm (Câu trả lời từ BankBot, Danh sách các tool đã sử dụng).
     """
     if chat_history is None:
         chat_history = []
@@ -99,6 +99,22 @@ def chat(user_message: str, chat_history: list = None) -> str:
     
     # Kết quả trả về chứa list các tin nhắn mới, phần tử cuối cùng là câu trả lời của AI
     messages = response.get("messages", [])
+    
+    # Trích xuất các công cụ đã sử dụng trong lượt chạy này
+    used_tools = []
+    new_messages = messages[len(formatted_messages):]
+    for msg in new_messages:
+        # Kiểm tra tool_calls trong AIMessage
+        if hasattr(msg, "tool_calls") and msg.tool_calls:
+            for tool_call in msg.tool_calls:
+                tool_name = tool_call.get("name")
+                if tool_name and tool_name not in used_tools:
+                    used_tools.append(tool_name)
+        # Kiểm tra name trong ToolMessage
+        elif msg.__class__.__name__ == "ToolMessage" or (hasattr(msg, "name") and msg.name and msg.__class__.__name__.endswith("Message")):
+            if msg.name and msg.name not in used_tools:
+                used_tools.append(msg.name)
+
     if messages:
         content = messages[-1].content
         if isinstance(content, list):
@@ -108,25 +124,28 @@ def chat(user_message: str, chat_history: list = None) -> str:
                     text_parts.append(part.get("text", ""))
                 elif isinstance(part, str):
                     text_parts.append(part)
-            return "".join(text_parts)
-        return content
+            return "".join(text_parts), used_tools
+        return content, used_tools
         
-    return "Rất tiếc, đã xảy ra lỗi trong quá trình xử lý câu hỏi của bạn."
+    return "Rất tiếc, đã xảy ra lỗi trong quá trình xử lý câu hỏi của bạn.", used_tools
 
 if __name__ == "__main__":
     print("=== CHẠY THỬ NGHIỆM AGENT (LANGGRAPH) ===")
     
     # Test RAG Tool
     print("\n[Test 1] Tra cứu FAQ ngân hàng:")
-    response_rag = chat("Thời gian làm việc của ngân hàng thế nào?", [])
-    print(f"Trả lời:\n{response_rag}\n")
+    response_rag, tools_rag = chat("Thời gian làm việc của ngân hàng thế nào?", [])
+    print(f"Trả lời:\n{response_rag}")
+    print(f"Công cụ sử dụng: {tools_rag}\n")
     
     # Test Calculator Tool
     print("\n[Test 2] Tính toán lãi suất khoản vay:")
-    response_loan = chat("Tôi muốn vay 100 triệu trong 12 tháng với lãi suất 10%/năm. Số tiền trả mỗi tháng là bao nhiêu?", [])
-    print(f"Trả lời:\n{response_loan}\n")
+    response_loan, tools_loan = chat("Tôi muốn vay 100 triệu trong 12 tháng với lãi suất 10%/năm. Số tiền trả mỗi tháng là bao nhiêu?", [])
+    print(f"Trả lời:\n{response_loan}")
+    print(f"Công cụ sử dụng: {tools_loan}\n")
     
     # Test Exchange Rate Tool
     print("\n[Test 3] Xem tỷ giá:")
-    response_rate = chat("Tỷ giá USD hiện tại là bao nhiêu?", [])
-    print(f"Trả lời:\n{response_rate}\n")
+    response_rate, tools_rate = chat("Tỷ giá USD hiện tại là bao nhiêu?", [])
+    print(f"Trả lời:\n{response_rate}")
+    print(f"Công cụ sử dụng: {tools_rate}\n")
