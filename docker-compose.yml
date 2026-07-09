@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  bankbot:
+    # Build image trực tiếp từ Dockerfile cùng thư mục
+    build: .
+    # Tên container khi khởi chạy
+    container_name: bankbot_backend
+    # Tự động khởi động lại nếu container bị lỗi
+    restart: unless-stopped
+    # Ánh xạ cổng 8000 trong container ra cổng 8000 ngoài máy thật
+    ports:
+      - "8000:8000"
+    # Đọc file cấu hình môi trường (.env) ở thư mục gốc
+    env_file:
+      - .env
+    # Đồng bộ thư mục lưu trữ dữ liệu Vector DB
+    volumes:
+      - ./data:/app/data
