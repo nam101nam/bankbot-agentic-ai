@@ -1,23 +1,23 @@
-# 🏦 BankBot — Agentic AI
+# BankBot — Agentic AI
 
 **Trợ lý ảo ngân hàng thông minh sử dụng kiến trúc Agentic AI.** Agent (LLM) tự suy luận và chọn công cụ phù hợp để trả lời câu hỏi khách hàng — thay vì trả lời theo kịch bản cố định.
 
-> 📚 Đồ án môn học — Trường Đại học Công nghiệp Hà Nội (HaUI)
+> Đồ án môn học — Trường Đại học Công nghiệp Hà Nội (HaUI)
 
 ---
 
-## ✨ Tính năng chính
+## Tính năng chính
 
-- 🔍 **Tra cứu FAQ ngân hàng** bằng RAG (Retrieval-Augmented Generation) — tìm kiếm ngữ nghĩa trên dữ liệu thẻ tín dụng, tiết kiệm, vay vốn, thông tin chung
-- 🧮 **Tính lãi vay trả góp & lãi tiết kiệm** — áp dụng công thức tài chính chuẩn (PMT, lãi đơn)
-- 💱 **Tra cứu tỷ giá ngoại tệ** thời gian thực — hỗ trợ USD, EUR, JPY, GBP, CNY, KRW...
-- 🧠 **Agent tự động chọn tool** — LangGraph ReAct Agent tự suy luận, không cần cấu hình rule thủ công
+- **Tra cứu FAQ ngân hàng** bằng RAG (Retrieval-Augmented Generation) — tìm kiếm ngữ nghĩa trên dữ liệu thẻ tín dụng, tiết kiệm, vay vốn, thông tin chung
+- **Tính lãi vay trả góp & lãi tiết kiệm** — áp dụng công thức tài chính chuẩn (PMT, lãi đơn)
+- **Tra cứu tỷ giá ngoại tệ** thời gian thực — hỗ trợ USD, EUR, JPY, GBP, CNY, KRW...
+- **Agent tự động chọn tool** — LangGraph ReAct Agent tự suy luận, không cần cấu hình rule thủ công
 
 **Tech stack:** Python 3.11 · Google Gemini · LangChain + LangGraph · ChromaDB · FastAPI · Streamlit · Docker
 
 ---
 
-## 🚀 Cài đặt & Chạy
+## Cài đặt & Chạy
 
 ### Yêu cầu
 
@@ -61,7 +61,7 @@ docker-compose up --build         # Backend chạy tại http://localhost:8000
 
 ---
 
-## 💬 Cách sử dụng
+## Cách sử dụng
 
 Mở giao diện Streamlit tại `http://localhost:8501`, nhập câu hỏi bằng tiếng Việt. Agent sẽ tự chọn tool phù hợp.
 
@@ -69,9 +69,9 @@ Mở giao diện Streamlit tại `http://localhost:8501`, nhập câu hỏi bằ
 
 | Input (câu hỏi) | Tool được gọi | Output |
 |---|---|---|
-| "Điều kiện mở thẻ tín dụng là gì?" | 🔍 RAG | Trả lời dựa trên dữ liệu FAQ ngân hàng |
-| "Vay 500 triệu, lãi 8.5%/năm, 10 năm?" | 🧮 Calculator | Số tiền trả hàng tháng, tổng lãi |
-| "Tỷ giá USD hôm nay?" | 💱 Exchange Rate | Giá mua vào / bán ra so với VND |
+| "Điều kiện mở thẻ tín dụng là gì?" | RAG | Trả lời dựa trên dữ liệu FAQ ngân hàng |
+| "Vay 500 triệu, lãi 8.5%/năm, 10 năm?" | Calculator | Số tiền trả hàng tháng, tổng lãi |
+| "Tỷ giá USD hôm nay?" | Exchange Rate | Giá mua vào / bán ra so với VND |
 
 **Test bằng cURL:**
 
@@ -83,7 +83,7 @@ curl -X POST http://localhost:8000/chat \
 
 ---
 
-## 📁 Cấu trúc thư mục
+## Cấu trúc thư mục
 
 ```
 bankbot-agentic-ai/
@@ -107,6 +107,6 @@ bankbot-agentic-ai/
 
 <div align="center">
 
-**Được xây dựng với ❤️ bởi sinh viên HaUI**
+**Được xây dựng bởi sinh viên HaUI**
 
 </div>
